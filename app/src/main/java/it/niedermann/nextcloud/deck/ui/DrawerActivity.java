@@ -92,7 +92,7 @@ public abstract class DrawerActivity extends AppCompatActivity implements Naviga
                 syncManager.readAccounts().observe(this, (List<Account> accounts) -> {
                     accountsList = accounts;
                     long lastAccountId = sharedPreferences.getLong(getString(R.string.shared_preference_last_account), NO_ACCOUNTS);
-                    DeckLog.log("--- Read: shared_preference_last_account" + " | " + lastAccountId);
+                    DeckLog.log("--- SharedPreferences Read: shared_preference_last_account" + " | " + lastAccountId);
 
                     if (accounts.size() >= lastAccountId) {
                         for (Account account : accounts) {
@@ -159,7 +159,7 @@ public abstract class DrawerActivity extends AppCompatActivity implements Naviga
 
                     // Remember last account
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    DeckLog.log("--- Write: shared_preference_last_account" + " | " + this.account.getId());
+                    DeckLog.log("--- SharedPreferences Write: shared_preference_last_account" + " | " + this.account.getId());
                     editor.putLong(getString(R.string.shared_preference_last_account), this.account.getId());
                     editor.apply();
             }

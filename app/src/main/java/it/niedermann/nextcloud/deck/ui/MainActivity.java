@@ -112,7 +112,7 @@ public class MainActivity extends DrawerActivity {
                     if (stackAdapter.getCount() >= position) {
                         long currentStackId = stackAdapter.getItem(position).getStackId();
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        DeckLog.log("--- Write: shared_preference_last_stack_for_account_and_board_" + account.getId() + "_" + currentBoardId + " | " + currentStackId);
+                        DeckLog.log("--- SharedPreferences Write: shared_preference_last_stack_for_account_and_board_" + account.getId() + "_" + currentBoardId + " | " + currentStackId);
                         editor.putLong(getString(R.string.shared_preference_last_stack_for_account_and_board) + account.getId() + "_" + currentBoardId, currentStackId);
                         editor.apply();
                     }
@@ -170,7 +170,7 @@ public class MainActivity extends DrawerActivity {
     @Override
     protected void accountSet(Account account) {
         currentBoardId = sharedPreferences.getLong(getString(R.string.shared_preference_last_board_for_account_) + this.account.getId(), NO_BOARDS);
-        DeckLog.log("--- Read: shared_preference_last_board_for_account_" + account.getId() + " | " + currentBoardId);
+        DeckLog.log("--- SharedPreferences Read: shared_preference_last_board_for_account_" + account.getId() + " | " + currentBoardId);
 
         if (boardsLiveData != null && boardsLiveDataObserver != null) {
             boardsLiveData.removeObserver(boardsLiveDataObserver);
@@ -192,7 +192,7 @@ public class MainActivity extends DrawerActivity {
 
         // Remember last board for this account
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        DeckLog.log("--- Write: shared_preference_last_board_for_account_" + account.getId() + " | " + currentBoardId);
+        DeckLog.log("--- SharedPreferences Write: shared_preference_last_board_for_account_" + account.getId() + " | " + currentBoardId);
         editor.putLong(getString(R.string.shared_preference_last_board_for_account_) + this.account.getId(), currentBoardId);
         editor.apply();
     }
@@ -264,7 +264,7 @@ public class MainActivity extends DrawerActivity {
         syncManager.getStacksForBoard(account.getId(), board.getLocalId()).observe(MainActivity.this, (List<FullStack> fullStacks) -> {
             if (fullStacks != null) {
                 long savedStackId = sharedPreferences.getLong(getString(R.string.shared_preference_last_stack_for_account_and_board) + account.getId() + "_" + this.currentBoardId, NO_STACKS);
-                DeckLog.log("--- Read: shared_preference_last_stack_for_account_and_board" + account.getId() + "_" + this.currentBoardId + " | " + savedStackId);
+                DeckLog.log("--- SharedPreferences Read: shared_preference_last_stack_for_account_and_board" + account.getId() + "_" + this.currentBoardId + " | " + savedStackId);
                 stackAdapter.clear();
                 for (int i = 0; i < fullStacks.size(); i++) {
                     FullStack stack = fullStacks.get(i);
